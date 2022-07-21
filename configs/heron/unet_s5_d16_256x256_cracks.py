@@ -12,8 +12,9 @@ model = dict(
                      # ignore_index=0,
                      # loss_decode=dict(avg_non_ignore=True)
                      loss_decode=[
-                         dict(type='CrossEntropyLoss', loss_name='loss_ce', loss_weight=1.0, class_weight=[0.05, 0.95]),
-                         dict(type='DiceLoss', loss_name='loss_dice', loss_weight=3.0, class_weight=[0.05, 0.95])
+                         # dict(type='CrossEntropyLoss', loss_name='loss_ce', loss_weight=1.0, class_weight=[0.05, 0.95]),
+                         # dict(type='FocalLoss', loss_name='loss_focal', loss_weight=1.0),
+                         dict(type='DiceLoss', loss_name='loss_dice', loss_weight=3.0, class_weight=[0.01, 0.99])
                      ]
                      ),
 
@@ -22,12 +23,14 @@ model = dict(
                         # ignore_index=0,
                         # loss_decode=dict(avg_non_ignore=True)
                         loss_decode=[
-                                dict(type='CrossEntropyLoss', loss_name='loss_ce', loss_weight=1.0, class_weight=[0.05, 0.95]),
-                                dict(type='DiceLoss', loss_name='loss_dice', loss_weight=3.0, class_weight=[0.05, 0.95])
+                                # dict(type='FocalLoss', loss_name='loss_focal', loss_weight=1.0),
+                                # dict(type='CrossEntropyLoss', loss_name='loss_ce', loss_weight=1.0, class_weight=[0.05, 0.95]),
+                                dict(type='DiceLoss', loss_name='loss_dice', loss_weight=3.0, class_weight=[0.01, 0.99])
                             ]
                         ),
     #stride fix
-    test_cfg=dict(crop_size=(256, 256), stride=(170, 170))
+    # test_cfg=dict(crop_size=(256, 256), stride=(170, 170))
+    test_cfg=dict(mode='whole')
 )
 
 data = dict(
@@ -36,7 +39,7 @@ data = dict(
 )
 
 
-runner = dict(max_iters=200)
+runner = dict(max_iters=1000)
 log_config = dict(interval=5,
                   hooks=[
                       dict(type='TensorboardLoggerHook'),
