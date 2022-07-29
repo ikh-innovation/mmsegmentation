@@ -42,7 +42,11 @@ data = dict(
 runner = dict(max_iters=1000)
 log_config = dict(interval=5,
                   hooks=[
-                      dict(type='TensorboardLoggerHook'),
+                      dict(type='MMSegWandbHook',
+                           init_kwargs={
+                               'entity': "YOUR_ENTITY",
+                               'project': "YOUR_PROJECT_NAME"},
+                           ),
                       dict(type='TextLoggerHook')
                   ])
 evaluation = dict(interval=50, metric='mDice')
