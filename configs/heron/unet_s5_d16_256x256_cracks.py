@@ -3,59 +3,45 @@ _base_ = [
     '../_base_/default_runtime.py', '../_base_/schedules/schedule_20k.py'
 ]
 
-norm_cfg = dict(type='BN', requires_grad=True)
+norm_cfg = dict(type='SyncBN', requires_grad=True)
 
 model = dict(
     backbone=dict(norm_cfg=norm_cfg),
     decode_head=dict(num_classes=2,
-                     norm_cfg=norm_cfg,
-                     # ignore_index=0,
-                     # loss_decode=dict(avg_non_ignore=True)
-                     loss_decode=[
-                         # dict(type='CrossEntropyLoss', loss_name='loss_ce', loss_weight=1.0, class_weight=[0.05, 0.95]),
-                         # dict(type='FocalLoss', loss_name='loss_focal', loss_weight=1.0),
-                         dict(type='DiceLoss', loss_name='loss_dice', loss_weight=3.0, class_weight=[0.01, 0.99])
-                     ]
-                     ),
-
+                     norm_cfg=norm_cfg),
     auxiliary_head=dict(num_classes=2,
-                        norm_cfg=norm_cfg,
-                        # ignore_index=0,
-                        # loss_decode=dict(avg_non_ignore=True)
-                        loss_decode=[
-                                # dict(type='FocalLoss', loss_name='loss_focal', loss_weight=1.0),
-                                # dict(type='CrossEntropyLoss', loss_name='loss_ce', loss_weight=1.0, class_weight=[0.05, 0.95]),
-                                dict(type='DiceLoss', loss_name='loss_dice', loss_weight=3.0, class_weight=[0.01, 0.99])
-                            ]
-                        ),
+                        norm_cfg=norm_cfg),
     #stride fix
-    # test_cfg=dict(crop_size=(256, 256), stride=(170, 170))
-    test_cfg=dict(mode='whole')
+    test_cfg=dict(mode='slide', crop_size=(256, 256), stride=(170, 170))
+    # test_cfg=dict(mode='whole')
 )
 
 data = dict(
-    samples_per_gpu=6,
-    workers_per_gpu=1,
+    samples_per_gpu=8,
+    workers_per_gpu=4,
 )
 
-
-runner = dict(max_iters=1000)
+runner = dict(max_iters=500)
 log_config = dict(interval=5,
                   hooks=[
                       dict(type='MMSegWandbHook',
                            init_kwargs={
-                               'entity': "YOUR_ENTITY",
-                               'project': "YOUR_PROJECT_NAME"},
+                               'entity': "iknowhow",
+                               'project': "crack-segmentation",
+                               'name': 'unet_s5_d16_256x256_cracks'},
                            ),
                       dict(type='TextLoggerHook')
                   ])
 evaluation = dict(interval=50, metric='mDice')
-checkpoint_config = dict(interval=200)
+# checkpoint_config = dict(interval=150)
 
+
+log_level = 'ERROR'
 
 # fp16 settings
 optimizer_config = dict(type='Fp16OptimizerHook', loss_scale=512.)
 # fp16 placeholder
 fp16 = dict()
+
 
 
