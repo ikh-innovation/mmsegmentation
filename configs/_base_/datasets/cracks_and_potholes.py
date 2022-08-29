@@ -10,7 +10,7 @@ stride = (128, 128)
 train_pipeline = [
     dict(type='LoadImageFromFile'),
     dict(type='LoadAnnotations'),
-    dict(type='Resize', img_scale=img_scale, ratio_range=(0.8, 1.5)),
+    dict(type='Resize', img_scale=img_scale, ratio_range=(0.8, 1.2)),
     dict(type='RandomCrop', crop_size=crop_size, cat_max_ratio=1),
     dict(type='RandomFlip', prob=0.5),
     # dict(type='PhotoMetricDistortion'),
@@ -24,7 +24,7 @@ test_pipeline = [
     dict(
         type='MultiScaleFlipAug',
         img_scale=img_scale,
-        img_ratios=[0.5],
+        img_ratios=[1.],
         flip=False,
         transforms=[
             dict(type='Resize', keep_ratio=False),
