@@ -1,5 +1,5 @@
 _base_ = [
-    '../_base_/models/fcn_unet_s5-d16.py', '../_base_/datasets/cracks_and_potholes.py',
+    '../_base_/models/fcn_unet_s5-d16.py', '../_base_/datasets/cracks_256x256.py',
     '../_base_/default_runtime.py', '../_base_/schedules/schedule_20k.py'
 ]
 

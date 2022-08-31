@@ -1,4 +1,4 @@
-_base_ = ['../segformer_mit-b0_cracks.py']
+_base_ = ['../segformer_mit-b0_256x256_cracks.py']
 log_config = dict(hooks=[dict(type='MMSegWandbHook', init_kwargs={'entity': "iknowhow",
                                                                   'project': "crack-segmentation",
                                                                   'name': 'segformer_mit-b0_dice_cracks'})])
