@@ -55,7 +55,7 @@ log_config = dict(interval=5,
                            init_kwargs={
                                'entity': "iknowhow",
                                'project': "crack-segmentation",
-                               'name': 'segformer_mit-b0_cracks_and_potholes'},
+                               'name': 'segformer_mit-b0_dice_640x640_cracks_and_potholes'},
                            interval=100,
                            num_eval_images=10,
                            log_checkpoint=False,
