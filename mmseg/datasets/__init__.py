@@ -20,6 +20,8 @@ from .stare import STAREDataset
 from .voc import PascalVOCDataset
 from .cracks_and_potholes_dataset import CracksAndPotholesDataset
 from .cracks_dataset import CracksDataset
+from .lane import LaneDataset
+from .pothole600 import Pothole600Dataset
 
 __all__ = [
     'CustomDataset', 'build_dataloader', 'ConcatDataset', 'RepeatDataset',
@@ -28,5 +30,5 @@ __all__ = [
     'PascalContextDataset59', 'ChaseDB1Dataset', 'DRIVEDataset', 'HRFDataset',
     'STAREDataset', 'DarkZurichDataset', 'NightDrivingDataset',
     'COCOStuffDataset', 'LoveDADataset', 'MultiImageMixDataset',
-    'iSAIDDataset', 'ISPRSDataset', 'PotsdamDataset', 'CracksAndPotholesDataset', 'CracksDataset'
+    'iSAIDDataset', 'ISPRSDataset', 'PotsdamDataset', 'CracksAndPotholesDataset', 'CracksDataset', 'LaneDataset', 'Pothole600Dataset'
 ]
